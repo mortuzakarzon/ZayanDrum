@@ -1,34 +1,69 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Drum Kit</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Awesome To-Do List HTML,CSS & JavaScript</title>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"> 
 </head>
-
 <body>
+	<div class="container">
+		<div class="addTask">
+			<input type="text" placeholder="Add a Task">
+			<button>Add</button>
+		</div>
 
-  <h1 id="title">ZAYAN'S 🥁 DRUM</h1>
-  <div class="set">
-    <button class="w drum">w</button>
-    <button class="a drum">a</button>
-    <button class="s drum">s</button>
-    <button class="d drum">d</button>
-    <button class="j drum">j</button>
-    <button class="k drum">k</button>
-    <button class="l drum">l</button>
-  </div>
+		<ol class="notCompleted">
+			<h3>Not Completed</h3>
+		</ol>
+
+		<ol class="Completed">
+			<h3>Completed</h3>
+		</ol>
+	</div>
+
+	<script>
+		const input = document.querySelector('input');
+		const btn = document.querySelector('.addTask > button');
+
+		btn.addEventListener('click', addList);
+		input.addEventListener('keyup', (e)=>{
+			(e.keyCode === 13 ? addList(e) : null);
+		})
+
+		function addList(e){
+			const notCompleted = document.querySelector('.notCompleted');
+			const Completed = document.querySelector('.Completed');
+
+			const newLi = document.createElement('li');
+			const checkBtn = document.createElement('button');
+			const delBtn = document.createElement('button');
+
+			checkBtn.innerHTML = '<i class="fa fa-check"></i>';
+			delBtn.innerHTML = '<i class="fa fa-trash"></i>';
 
 
-  <footer>
-    Made with ❤️ for Zayan.
-  </footer>
+			if(input.value !==''){
+				newLi.textContent = input.value;
+				input.value = '';
+				notCompleted.appendChild(newLi);
+				newLi.appendChild(checkBtn);
+				newLi.appendChild(delBtn);
+			}
 
-  <script type="text/javascript" src="index.js">
+			checkBtn.addEventListener('click', function(){
+				const parent = this.parentNode;
+				parent.remove();
+				Completed.appendChild(parent);
+				checkBtn.style.display = 'none';
+			});
 
-  </script>
+			delBtn.addEventListener('click', function(){
+				const parent = this.parentNode;
+				parent.remove();
+			});
+		}
+
+	</script>
 </body>
-
 </html>
